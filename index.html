@@ -2,34 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Joana's Café</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Computation</title>
   <link rel="stylesheet" href="style.css">
-    
-  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Grade Computation</h1>
 
-  <header>
-    <img src="/Brown Simple Cafe Logo_20251010_142527_0000.png" alt="Joana's Café Logo" class="logo">
-    <div class="title">JOANA'S CAFE</div>
-  </header>
+    <label>Attendance 25%:</label>
+    <input type="text" id="att" placeholder="Enter attendance score">
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="login.html">Log In</a>
-  </nav>
+    <label>Quiz 25%:</label>
+    <input type="text" id="quiz" placeholder="Enter quiz score">
 
-  <div class="main-container">
-    <div class="sayings">
-      <p>☕ "Coffee is the answer, who cares what the question is!"</p>
-      <p>☕ "Life is too short for bad coffee."</p>
-      <p>☕ "You had me at coffee."</p>
-      <p>☕ "Espresso yourself!"</p>
-    </div>
+    <label>Exam 50%:</label>
+    <input type="text" id="exam" placeholder="Enter exam score">
 
-    
+    <button onclick="compute()">Compute</button>
 
+    <h2 id="result"></h2>
+  </div>
+
+  <script>
+    function compute() {
+      let attendance = parseFloat(document.getElementById("att").value);
+      let quiz = parseFloat(document.getElementById("quiz").value);
+      let exam = parseFloat(document.getElementById("exam").value);
+
+      if (isNaN(attendance) || isNaN(quiz) || isNaN(exam)) {
+        document.getElementById("result").innerHTML = "Please enter all scores!";
+        return;
+      }
+
+      let finalGrade = (attendance * 0.25) + (quiz * 0.25) + (exam * 0.5);
+      let remark = finalGrade >= 75 ? "Passed ✅" : "Failed ❌";
+
+      document.getElementById("result").innerHTML =
+        "Final Grade: " + finalGrade.toFixed(2) + " — " + remark;
+    }
+  </script>
 </body>
 </html>
