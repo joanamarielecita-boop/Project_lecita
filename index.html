@@ -3,43 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grade Computation</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SwitchCase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { primary: '#1e90ff' },
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="container">
-    <h1>Grade Computation</h1>
+<body class="bg-primary min-h-screen flex items-center justify-center font-sans">
 
-    <label>Attendance 25%:</label>
-    <input type="text" id="att" placeholder="Enter attendance score">
+  <div class="bg-blue-500 text-white p-8 rounded-3xl shadow-2xl w-80 text-center">
+    <h1 class="text-2xl font-bold mb-6">Simple Calculator</h1>
 
-    <label>Quiz 25%:</label>
-    <input type="text" id="quiz" placeholder="Enter quiz score">
+    
+    <div class="mb-4 text-left">
+      <label class="block text-white font-semibold mb-1">Enter 1st no.:</label>
+      <input type="number" id="n1" placeholder="Enter 1st number"
+        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
+    </div>
 
-    <label>Exam 50%:</label>
-    <input type="text" id="exam" placeholder="Enter exam score">
+    <div class="mb-4 text-left">
+      <label class="block text-white font-semibold mb-1">Enter Operator:</label>
+      <input type="text" id="op" placeholder="+  -  *  /"
+        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
+    </div>
+    <div class="mb-4 text-left">
+      <label class="block text-white font-semibold mb-1">Enter 2nd no.:</label>
+      <input type="number" id="n2" placeholder="Enter 2nd number"
+        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
+    </div>
 
-    <button onclick="compute()">Compute</button>
+    <!-- Compute Button -->
+    <button onclick="calc()" class="bg-white text-blue-600 font-semibold py-2 px-6 rounded-xl shadow-md hover:bg-blue-100 transition">
+      Compute
+    </button>
 
-    <h2 id="result"></h2>
+    <div class="mt-6 border-t border-white/50 pt-3">
+      <p class="text-sm opacity-80">Result:</p>
+      <div id="res"
+        class="text-3xl font-extrabold mt-2 p-2 bg-white text-blue-600 rounded-xl min-h-[3rem] flex items-center justify-center">
+        0
+      </div>
+    </div>
   </div>
 
   <script>
-    function compute() {
-      let attendance = parseFloat(document.getElementById("att").value);
-      let quiz = parseFloat(document.getElementById("quiz").value);
-      let exam = parseFloat(document.getElementById("exam").value);
+    const n1El = document.getElementById('n1');
+    const opEl = document.getElementById('op');
+    const n2El = document.getElementById('n2');
+    const resEl = document.getElementById('res');
 
-      if (isNaN(attendance) || isNaN(quiz) || isNaN(exam)) {
-        document.getElementById("result").innerHTML = "Please enter all scores!";
+    function calc() {
+      const n1 = parseFloat(n1El.value);
+      const n2 = parseFloat(n2El.value);
+      const op = opEl.value.trim();
+      let result;
+
+      resEl.className = 'text-3xl font-extrabold mt-2 p-2 bg-white text-blue-600 rounded-xl min-h-[3rem] flex items-center justify-center';
+
+      if (isNaN(n1) || isNaN(n2)) {
+        resEl.textContent = 'Invalid';
+        resEl.classList.add('text-red-600', 'bg-red-100');
         return;
       }
 
-      let finalGrade = (attendance * 0.25) + (quiz * 0.25) + (exam * 0.5);
-      let remark = finalGrade >= 75 ? "Passed ✅" : "Failed ❌";
-
-      document.getElementById("result").innerHTML =
-        "Final Grade: " + finalGrade.toFixed(2) + " — " + remark;
+      switch (op) {
+        case '+': result = n1 + n2; break;
+        case '-': result = n1 - n2; break;
+        case '*': result = n1 * n2; break;
+        case '/':
+          if (n2 === 0) {
+            resEl.textContent = 'Div by 0';
+            resEl.classList.add('text-red-600', 'bg-red-100');
+            return;
+          }
+          result = n1 / n2;
+          break;
+        default:
+          resEl.textContent = 'Bad Op';
+          resEl.classList.add('text-red-600', 'bg-red-100');
+          return;
+      }
+resEl.textContent = result.toLocaleString('en-US', { maximumFractionDigits: 5 });
     }
   </script>
 </body>
