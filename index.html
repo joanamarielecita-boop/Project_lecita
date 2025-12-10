@@ -2,96 +2,338 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Calculator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: { primary: '#1e90ff' },
-        }
-      }
-    }
-  </script>
-</head>
-<body class="bg-primary min-h-screen flex items-center justify-center font-sans">
+  <title>Joana's Café</title>
+ /* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  <div class="bg-blue-500 text-white p-8 rounded-3xl shadow-2xl w-80 text-center">
-    <h1 class="text-2xl font-bold mb-6">Simple Calculator</h1>
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-color: #6c757d;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 6rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--secondary-color);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.dark-section {
+    background: var(--dark-color);
+    color: var(--light-color);
+}
+
+.dark-section .section-title {
+    color: var(--light-color);
+}
+
+
+/* Navigation Bar */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+#navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--dark-color);
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--primary-color);
+}
+
+.menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+/* Hero Section */
+#hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--light-color) 0%, #e3f2fd 100%);
+    padding-top: 4rem;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.hero-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--gray-color);
+}
+
+.typing-text {
+    color: var(--primary-color);
+    border-right: 3px solid var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
+}
+
+.hero-avatar {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid var(--primary-color);
+    object-fit: cover;
+}
+
+
+/* About Section */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--gray-color);
+}
+
+.about-content p {
+    margin-bottom: 2rem;
+}
+
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.project-card {
+    background: white;
+    color: var(--dark-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card h3 {
+    padding: 1.5rem 1.5rem 0.5rem;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.project-card p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--gray-color);
+}
+
+.project-links {
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.project-links a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.project-links a:hover {
+    color: var(--secondary-color);
+}
+
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-category {
+    background: #f1f3f5;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.skill-category h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.skill-category ul {
+    list-style: none;
+}
+
+.skill-category li {
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.skill-category li i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+
+/* Contact Section */
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-details p {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items:
 
     
-    <div class="mb-4 text-left">
-      <label class="block text-white font-semibold mb-1">Enter 1st no.:</label>
-      <input type="number" id="n1" placeholder="Enter 1st number"
-        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="/Brown Simple Cafe Logo_20251010_142527_0000.png" alt="Joana's Café Logo" class="logo">
+    <div class="title">JOANA'S CAFE</div>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="login.html">Log In</a>
+  </nav>
+
+  <div class="main-container">
+    <div class="sayings">
+      <p>☕ "Coffee is the answer, who cares what the question is!"</p>
+      <p>☕ "Life is too short for bad coffee."</p>
+      <p>☕ "You had me at coffee."</p>
+      <p>☕ "Espressó yourself!"</p>
     </div>
 
-    <div class="mb-4 text-left">
-      <label class="block text-white font-semibold mb-1">Enter operator.:</label>
-      <input type="text" id="op" placeholder="+  -  *  /"
-        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
-    </div>
-    <div class="mb-4 text-left">
-      <label class="block text-white font-semibold mb-1">Enter 2nd no.:</label>
-      <input type="number" id="n2" placeholder="Enter 2nd number"
-        class="w-full p-2 rounded-xl border border-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200">
-    </div>
+    
 
-    <!-- Compute Button -->
-    <button onclick="calc()" class="bg-white text-blue-600 font-semibold py-2 px-6 rounded-xl shadow-md hover:bg-blue-100 transition">
-      Compute
-    </button>
-
-    <div class="mt-6 border-t border-white/50 pt-3">
-      <p class="text-sm opacity-80">Result:</p>
-      <div id="res"
-        class="text-3xl font-extrabold mt-2 p-2 bg-white text-blue-600 rounded-xl min-h-[3rem] flex items-center justify-center">
-        0
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const n1El = document.getElementById('n1');
-    const opEl = document.getElementById('op');
-    const n2El = document.getElementById('n2');
-    const resEl = document.getElementById('res');
-
-    function calc() {
-      const n1 = parseFloat(n1El.value);
-      const n2 = parseFloat(n2El.value);
-      const op = opEl.value.trim();
-      let result;
-
-      resEl.className = 'text-3xl font-extrabold mt-2 p-2 bg-white text-blue-600 rounded-xl min-h-[3rem] flex items-center justify-center';
-
-      if (isNaN(n1) || isNaN(n2)) {
-        resEl.textContent = 'Invalid';
-        resEl.classList.add('text-red-600', 'bg-red-100');
-        return;
-      }
-
-      switch (op) {
-        case '+': result = n1 + n2; break;
-        case '-': result = n1 - n2; break;
-        case '*': result = n1 * n2; break;
-        case '/':
-          if (n2 === 0) {
-            resEl.textContent = 'Div by 0';
-            resEl.classList.add('text-red-600', 'bg-red-100');
-            return;
-          }
-          result = n1 / n2;
-          break;
-        default:
-          resEl.textContent = 'Bad Op';
-          resEl.classList.add('text-red-600', 'bg-red-100');
-          return;
-      }
-resEl.textContent = result.toLocaleString('en-US', { maximumFractionDigits: 5 });
-    }
-  </script>
 </body>
 </html>
